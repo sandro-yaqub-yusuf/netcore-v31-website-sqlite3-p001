@@ -1,0 +1,83 @@
+@using KITAB.Products.Web.Extensions
+@model IEnumerable<KITAB.Products.Web.ViewModels.ProductViewModel>
+
+<div class="col-md-12" style="margin-top: 10px;">
+    <form class="form-horizontal" method="get" asp-controller="Products" asp-action="Index">
+        <div class="form-group row">
+            <div class="col-sm-1">
+                <label for="Produto" class="col-form-label">Produto:</label>
+            </div>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" name="filter" style="width: 250px;">
+            </div>
+            <div class="col-sm-2">
+                <input class="btn btn-secondary" type="submit" value="PESQUISAR">
+            </div>
+            <div class="col-sm-2">
+                <a class="btn btn-secondary" asp-controller="Products" asp-action="Index">LISTAR TODOS</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="col-md-12 table-responsive p-0">
+    <table class="table table-hover table-striped text-nowrap">
+        <thead class="thead-dark">
+            <tr>
+                <th>
+                    @Html.ActionLink("Id", "Index", "Products", new { sortField = "Id", currentSortField = ViewBag.Pagination.SortField, currentSortOrder = ViewBag.Pagination.SortOrder, currentFilter = ViewBag.Pagination.Filter })
+                </th>
+                <th>
+                    @Html.ActionLink("Produto", "Index", "Products", new { sortField = "Name", currentSortField = ViewBag.Pagination.SortField, currentSortOrder = ViewBag.Pagination.SortOrder, currentFilter = ViewBag.Pagination.Filter })
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Inventory)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CostPrice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.SalePrice)
+                </th>
+                <th>
+                    @Html.ActionLink("Situação", "Index", "Products", new { sortField = "Status", currentSortField = ViewBag.Pagination.SortField, currentSortOrder = ViewBag.Pagination.SortOrder, currentFilter = ViewBag.Pagination.Filter })
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @item.Inventory
+                    </td>
+                    <td>
+                        @item.CostPrice.ToString("C")
+                    </td>
+                    <td>
+                        @item.SalePrice.ToString("C")
+                    </td>
+                    <td>
+                        @this.FormatStatus(item.Status)
+                    </td>
+                    <td class="text-right">
+                        <a class="btn btn-warning" asp-controller="Products" asp-action="Show" asp-route-id="@item.Id"><span class="fa fa-search"></span></a>
+                        <a class="btn btn-info" asp-controller="Products" asp-action="Update" asp-route-id="@item.Id"><span class="fa fa-pencil-alt"></span></a>
+                        <a class="btn btn-danger" asp-controller="Products" asp-action="Delete" asp-route-id="@item.Id"><span class="fa fa-trash"></span></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="col-md-12" style="margin-top: 20px;">
+    @await Component.InvokeAsync("Pagination")
+</div>

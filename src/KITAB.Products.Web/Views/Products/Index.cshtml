@@ -1,0 +1,39 @@
+@model IEnumerable<KITAB.Products.Web.ViewModels.ProductViewModel>
+
+@{
+    ViewData["Title"] = "Produtos - Lista de Produtos";
+}
+
+<!-- BEGIN Content Header -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>@ViewData["Title"]</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li class="breadcrumb-item active">Produtos</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- END Content Header -->
+
+<!-- BEGIN Content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <vc:Summary></vc:Summary>
+            </div>
+            <div class="col-sm-12">
+                <p><a class="btn btn-info" asp-controller="Products" asp-action="Create">Novo Produto</a></p>
+            </div>
+            <partial name="_productList" />
+        </div>
+    </div>
+</section>
+<!-- END Content -->

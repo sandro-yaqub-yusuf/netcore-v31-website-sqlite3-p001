@@ -1,0 +1,133 @@
+@model KITAB.Products.Web.ViewModels.ProductViewModel
+
+@{
+    ViewData["Title"] = "Produtos - Novo Produto";
+}
+
+<!-- BEGIN Content Header -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>@ViewData["Title"]</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li class="breadcrumb-item"><a asp-area="" asp-controller="Products" asp-action="Index">Produtos</a></li>
+                    <li class="breadcrumb-item active">Novo</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- END Content Header -->
+
+<!-- BEGIN Content -->
+<section class="content">
+    <div class="container-fluid">
+        <form class="form-horizontal" method="post" enctype="multipart/form-data" asp-controller="Products" asp-action="Create">
+            <div class="card-body">
+                <div class="form-group row">
+                    <vc:Summary></vc:Summary>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Name" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <input asp-for="Name" class="form-control">
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Description" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <textarea cols="40" rows="5" asp-for="Description" class="form-control"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="ImageUpload" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="ImageUpload" asp-for="ImageUpload">
+                            <label data-browse="Procurar" style="width: 400px" class="custom-file-label" for="ImageUpload"></label>
+                            <label style="display: none" id="img_name"></label>
+                        </div>
+                        <span asp-validation-for="ImageUpload" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Inventory" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10 input-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="fas fa-boxes"></i>
+                                </span>
+                            </div>
+                            <input asp-for="Inventory" class="form-control">
+                        </div>
+                        <span asp-validation-for="Inventory" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="CostPrice" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10 input-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                </span>
+                            </div>
+                            <input asp-for="CostPrice" class="form-control">
+                        </div>
+                        <span asp-validation-for="CostPrice" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="SalePrice" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10 input-group">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <i class="fas fa-money-bill-wave"></i>
+                                </span>
+                            </div>
+                            <input asp-for="SalePrice" class="form-control">
+                        </div>
+                        <span asp-validation-for="SalePrice" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label asp-for="Status" class="col-sm-2 col-form-label"></label>
+                    <div class="col-sm-10">
+                        <select name="Status" id="ddlSituacao">
+                            <option selected="selected" value="A">Ativado</option>
+                            <option value="D">Desativado</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <input type="submit" value="Cadastrar" class="btn btn-primary" />
+                <a class="btn btn-info float-right" asp-controller="Products" asp-action="Index">Voltar</a>
+            </div>
+        </form>
+    </div>
+</section>
+<!-- END Content -->
+
+@section Scripts
+{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        $("#ImageUpload").change(function () {
+            $("#img_name").text(this.files[0].name);
+            $("#img_name")[0].style.display = 'block';
+        });
+
+        $("#ImageUpload").attr("data-val", "true");
+        $("#ImageUpload").attr("data-val-required", "Preencha o campo Imagem...");
+    </script>
+}

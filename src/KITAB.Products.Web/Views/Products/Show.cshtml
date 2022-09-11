@@ -1,0 +1,115 @@
+@model KITAB.Products.Web.ViewModels.ProductViewModel
+
+@{
+    ViewData["Title"] = "Produtos - Consulta do Produto";
+}
+
+<!-- BEGIN Content Header -->
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>@ViewData["Title"]</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                    <li class="breadcrumb-item"><a asp-area="" asp-controller="Products" asp-action="Index">Produtos</a></li>
+                    <li class="breadcrumb-item active">Consulta</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- END Content Header -->
+
+<!-- BEGIN Content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="card-body">
+            <div class="form-group row">
+                <vc:Summary></vc:Summary>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Name" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <input asp-for="Name" class="form-control" disabled>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Description" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <textarea cols="40" rows="5" asp-for="Description" class="form-control" disabled></textarea>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">Imagem Atual</label>
+                <div class="col-sm-10">
+                    <img src="~/img/products/@Model.Image" alt="@Model.Image" style="width: 200px; height: 200px" />
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Inventory" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10 input-group">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fas fa-boxes"></i>
+                            </span>
+                        </div>
+                        <input asp-for="Inventory" class="form-control" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="CostPrice" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10 input-group">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </span>
+                        </div>
+                        <input asp-for="CostPrice" class="form-control" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="SalePrice" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10 input-group">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </span>
+                        </div>
+                        <input asp-for="SalePrice" class="form-control" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Status" class="col-sm-2 col-form-label"></label>
+                <div class="col-sm-10">
+                    <select name="Status" id="ddlSituacao" disabled>
+                        <option selected="selected" value="A">Ativado</option>
+                        <option value="D">Desativado</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <a class="btn btn-warning" asp-controller="Products" asp-action="Update" asp-route-id="@Model.Id">Alterar</a>
+            <a class="btn btn-danger" asp-controller="Products" asp-action="Delete" asp-route-id="@Model.Id">Excluir</a>
+            <a class="btn btn-info float-right" asp-controller="Products" asp-action="Index">Voltar</a>
+        </div>
+    </div>
+</section>
+<!-- END Content -->
+
+@section Scripts
+{
+    <script>
+        // Posiciona o DROPDOWNLIST da situa��o de acordo com o que vier do BD
+        document.getElementById('ddlSituacao').value = '@Model.Status';
+    </script>
+}
